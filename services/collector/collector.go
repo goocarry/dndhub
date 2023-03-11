@@ -8,6 +8,9 @@ import (
 	"text/template"
 )
 
+// PORT ...
+const PORT = "3000"
+
 func main() {
 
 	logger := log.New(os.Stdout, "collector: ", 0)
@@ -16,8 +19,8 @@ func main() {
 		render(w, "test.page.gohtml")
 	})
 
-	logger.Println("Starting collector server...")
-	err := http.ListenAndServe(":3000", nil)
+	logger.Printf("Starting collector server at port %s...", PORT)
+	err := http.ListenAndServe(fmt.Sprintf(":%s", PORT), nil)
 	if err != nil {
 		logger.Panic(err)
 	}
