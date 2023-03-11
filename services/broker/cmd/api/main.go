@@ -7,7 +7,7 @@ import (
 )
 
 // PORT ...
-const PORT = "3000"
+const PORT = "3001"
 
 // Config ..
 type Config struct{}

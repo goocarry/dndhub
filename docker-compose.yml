@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+
+  collector:
+    build:
+      context: ./services/collector
+      dockerfile: ./collector.dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+  
+  broker:
+    build:
+      context: ./services/broker
+      dockerfile: ./broker.dockerfile
+    restart: always
+    ports:
+      - "3001:3001"
+    deploy:
+      mode: replicated
+      replicas: 1
+
