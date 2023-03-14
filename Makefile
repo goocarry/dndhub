@@ -2,7 +2,7 @@ SERVICES_DIR=services
 
 up:
 	@echo "Starting docker images..."
-	docker-compose up -d
+	docker-compose up
 	@echo "Docker images started!"
 
 up-build:
@@ -35,3 +35,12 @@ build-broker:
 
 run-broker: build-broker
 	@cd $(SERVICES_DIR)/broker && ./bin/broker
+
+build-auth:
+	@echo "Starting build broker service..."
+	@cd $(SERVICES_DIR)/auth  && $(MAKE) build
+	@echo "Done!"
+
+migrate-db-auth:
+	@echo "Starting migrate db auth service..."
+	@cd $(SERVICES_DIR)/auth && $(MAKE) migrate-up
