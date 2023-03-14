@@ -70,7 +70,7 @@ func (u *User) GetByEmail(email string) (*User, error) {
 // with the hash we have stored for a given user in the database. If the paswword
 // and hash match, we return true; otherwise, we return false.
 func (u *User) PasswordMatches(plainText string) (bool, error) {
-	err := bcrypt.CompareHashAndPassword([]byte(plainText), []byte(u.Password))
+	err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(plainText))
 	if err != nil {
 		switch {
 		case errors.Is(err, bcrypt.ErrMismatchedHashAndPassword):
