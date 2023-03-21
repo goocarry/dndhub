@@ -58,3 +58,13 @@ run-auth:
 migrate-db-auth:
 	@echo "Starting migrate db auth service..."
 	@cd $(SERVICES_DIR)/auth && $(MAKE) migrate-up
+
+build-mailer:
+	@echo "Starting build mailer service..."
+	@cd $(SERVICES_DIR)/mailer  && $(MAKE) build
+	@echo "Done!"
+
+run-mailer:
+	@echo "Starting mailer service..."
+	@cd $(SERVICES_DIR)/mailer && ./bin/mailer
+	@echo "Mailer service is running..."

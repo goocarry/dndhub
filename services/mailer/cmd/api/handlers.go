@@ -1,6 +1,8 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
+)
 
 // SendMail ...
 func (app *Config) SendMail(w http.ResponseWriter, r *http.Request) {
@@ -13,7 +15,7 @@ func (app *Config) SendMail(w http.ResponseWriter, r *http.Request) {
 
 	var requestPayload mailMessage
 
-	err := app.readJSON(w, r, requestPayload)
+	err := app.readJSON(w, r, &requestPayload)
 	if err != nil {
 		app.errorJSON(w, err)
 		return
