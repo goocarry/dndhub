@@ -68,3 +68,13 @@ run-mailer:
 	@echo "Starting mailer service..."
 	@cd $(SERVICES_DIR)/mailer && ./bin/mailer
 	@echo "Mailer service is running..."
+
+build-listener:
+	@echo "Starting build listener service..."
+	@cd $(SERVICES_DIR)/listener  && $(MAKE) build
+	@echo "Done!"
+
+run-listener:
+	@echo "Starting listener service..."
+	@cd $(SERVICES_DIR)/listener && ./bin/listener
+	@echo "Listener service is running..."
