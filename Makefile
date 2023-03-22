@@ -40,14 +40,24 @@ build-broker:
 	@cd	$(SERVICES_DIR)/broker && $(MAKE) build
 	@echo "Done!"
 
+build-push-broker:
+	@echo "Starting build broker service and pushing to docker registry..."
+	@cd	$(SERVICES_DIR)/broker && $(MAKE) build-push
+	@echo "Done!"
+
 run-broker: build-broker
 	@echo "Starting broker service..."
 	@cd $(SERVICES_DIR)/broker && ./bin/broker
 	@echo "Broker service is running..."
 
 build-auth:
-	@echo "Starting build broker service..."
-	@cd $(SERVICES_DIR)/auth  && $(MAKE) build
+	@echo "Starting build auth service..."
+	@cd $(SERVICES_DIR)/auth && $(MAKE) build
+	@echo "Done!"
+
+build-push-auth:
+	@echo "Starting build auth service and pushing to docker registry..."
+	@cd $(SERVICES_DIR)/auth && $(MAKE) build-push
 	@echo "Done!"
 
 run-auth:
@@ -59,9 +69,29 @@ migrate-db-auth:
 	@echo "Starting migrate db auth service..."
 	@cd $(SERVICES_DIR)/auth && $(MAKE) migrate-up
 
+build-logger:
+	@echo "Starting build logger service..."
+	@cd	$(SERVICES_DIR)/logger && $(MAKE) build
+	@echo "Done!"
+
+build-push-logger:
+	@echo "Starting build logger service and pushing to docker registry..."
+	@cd	$(SERVICES_DIR)/logger && $(MAKE) build-push
+	@echo "Done!"
+
+run-logger: build-logger
+	@echo "Starting logger service..."
+	@cd $(SERVICES_DIR)/logger && ./bin/logger
+	@echo "Logger service is running..."
+
 build-mailer:
 	@echo "Starting build mailer service..."
-	@cd $(SERVICES_DIR)/mailer  && $(MAKE) build
+	@cd $(SERVICES_DIR)/mailer && $(MAKE) build
+	@echo "Done!"
+
+build-push-mailer:
+	@echo "Starting build mailer service and pushing to docker registry..."
+	@cd $(SERVICES_DIR)/mailer && $(MAKE) build-push
 	@echo "Done!"
 
 run-mailer:
@@ -71,10 +101,18 @@ run-mailer:
 
 build-listener:
 	@echo "Starting build listener service..."
-	@cd $(SERVICES_DIR)/listener  && $(MAKE) build
+	@cd $(SERVICES_DIR)/listener && $(MAKE) build
+	@echo "Done!"
+
+build-push-listener:
+	@echo "Starting build listener service and pushing to docker registry..."
+	@cd $(SERVICES_DIR)/listener && $(MAKE) build-push
 	@echo "Done!"
 
 run-listener:
 	@echo "Starting listener service..."
 	@cd $(SERVICES_DIR)/listener && ./bin/listener
 	@echo "Listener service is running..."
+
+build-push-all: build-push-listener build-push-mailer build-push-auth build-push-logger build-push-broker
+	@echo "All docker images are built and pushed to registry!"
