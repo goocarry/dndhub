@@ -32,6 +32,11 @@ build-collector:
 	@cd	$(SERVICES_DIR)/collector && $(MAKE) build
 	@echo "Done!"
 
+build-push-collector:
+	@echo "Starting build collector service and pushing to docker registry..."
+	@cd	$(SERVICES_DIR)/collector && $(MAKE) build-push
+	@echo "Done!"
+
 run-collector: build-collector
 	@cd $(SERVICES_DIR)/collector && ./bin/collector
 

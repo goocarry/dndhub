@@ -1,10 +1,15 @@
 version: '3'
 
 services:
+
+  collector:
+    image: goocarry/collector:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+  
   broker:
     image: goocarry/broker:latest
-    ports:
-      - "3001:3001"
     deploy:
       mode: replicated
       replicas: 1

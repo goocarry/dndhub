@@ -1,6 +1,7 @@
 package main
 
 import (
+	"embed"
 	"fmt"
 	"log"
 	"net/http"
@@ -26,21 +27,24 @@ func main() {
 	}
 }
 
+//go:embed templates
+var templateFS embed.FS
+
 func render(w http.ResponseWriter, t string) {
 	partials := []string{
-		"./templates/base.layout.gohtml",
-		"./templates/header.partial.gohtml",
-		"./templates/footer.partial.gohtml",
+		"templates/base.layout.gohtml",
+		"templates/header.partial.gohtml",
+		"templates/footer.partial.gohtml",
 	}
 
 	var templateSlice []string
-	templateSlice = append(templateSlice, fmt.Sprintf("./templates/%s", t))
+	templateSlice = append(templateSlice, fmt.Sprintf("templates/%s", t))
 
 	for _, t := range partials {
 		templateSlice = append(templateSlice, t)
 	}
 
-	tmpl, err := template.ParseFiles(templateSlice...)
+	tmpl, err := template.ParseFS(templateFS, templateSlice...)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
