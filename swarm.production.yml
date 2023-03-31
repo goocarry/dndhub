@@ -3,7 +3,7 @@ version: '3'
 services:
 
   caddy:
-    image: goocarry/micro-caddy-prod:latest
+    image: goocarry/micro-caddy-prod-ssl:latest
     deploy:
       mode: replicated
       replicas: 1
@@ -23,7 +23,7 @@ services:
       mode: replicated
       replicas: 1
     environment:
-      BROKER_URL: "http://broker.goocarry.site"
+      BROKER_URL: "https://broker.goocarry.site"
   
   broker:
     image: goocarry/broker:latest

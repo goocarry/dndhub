@@ -21,13 +21,14 @@
     }
 }
 
-swarm.goocarry.site:80 {
+swarm.goocarry.site {
     encode zstd gzip
     import static
+    import security
 
     reverse_proxy http://collector:3000
 }
 
-broker.goocarry.site:80 {
+broker.goocarry.site {
     reverse_proxy http://broker:3001
 }
