@@ -9,7 +9,7 @@ services:
     restart: always
     ports:
       - "3000:3000"
-  
+
   broker:
     build:
       context: ./services/broker
@@ -72,12 +72,17 @@ services:
       replicas: 1
 
   statictv:
-    image: goocarry/statictv:latest
+    build:
+      context: ./services/statictv
+      dockerfile: ./statictv.dockerfile
+    restart: always
+    ports:
+      - "3006:3006"
     deploy:
       mode: replicated
       replicas: 1
     environment:
-      FILES_DIR: "/static"
+      FILES_DIR: "/app/static"
 
   postgres:
     image: 'postgres:14.2'

@@ -72,7 +72,7 @@ services:
       mode: replicated
       replicas: 1
     environment:
-      FILES_DIR: "/static"
+      FILES_DIR: "/app/static"
 
   rabbitmq:
     image: 'rabbitmq:3.9-alpine'

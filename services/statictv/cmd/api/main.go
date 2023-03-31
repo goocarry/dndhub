@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"net/http"
@@ -21,8 +22,14 @@ type Config struct{}
 
 func main() {
 	envFilesDir := os.Getenv("FILES_DIR")
-	if len(filesDir) > 0 {
+	if len(envFilesDir) > 0 {
 		filesDir = envFilesDir
+	}
+
+	log.Println("env: ", filesDir)
+
+	if _, err := os.Stat(filesDir); errors.Is(err, os.ErrNotExist) {
+		log.Println("FILE_DIR NOT EXISTS")
 	}
 
 	app := Config{}

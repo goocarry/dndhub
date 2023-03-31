@@ -32,3 +32,7 @@ swarm.goocarry.site {
 broker.goocarry.site {
     reverse_proxy http://broker:3001
 }
+
+cat.goocarry.site {
+    reverse_proxy http://statictv:3006
+}
