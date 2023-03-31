@@ -1,0 +1,120 @@
+version: '3'
+
+services:
+
+  caddy:
+    image: goocarry/micro-caddy-prod:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == node1
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+
+  collector:
+    image: goocarry/collector:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      BROKER_URL: "http://broker.goocarry.site"
+  
+  broker:
+    image: goocarry/broker:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+
+  listener:
+    image: goocarry/listener:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+
+  auth:
+    image: goocarry/auth:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      DSN: "host=postgres port=5432 user=postgres password=password dbname=users sslmode=disable timezone=UTC connect_timeout=5"
+
+  logger:
+    image: goocarry/logger:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+
+  mailer:
+    image: goocarry/mailer:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      MAIL_DOMAIN: localhost
+      MAIL_HOST: mailhog
+      MAIL_PORT: 1025
+      MAIL_USERNAME: none
+      MAIL_PASSWORD: ""
+      MAIL_ENCRYPTION: ""
+      MAIL_NAME: "John Smith"
+      MAIL_ADDRESS: john.smith@example.com
+
+  rabbitmq:
+    image: 'rabbitmq:3.9-alpine'
+    deploy:
+      mode: replicated
+      replicas: 1
+
+  mailhog:
+    image: 'mailhog/mailhog:latest'
+    ports:
+      - "8025:8025"
+    deploy:
+      mode: replicated
+      replicas: 1
+
+  mongo:
+    image: 'mongo:4.2.17-bionic'
+    ports:
+      - "27017:27017"
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == node1
+    environment:
+      MONGO_INITDB_DATABASE: logs
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./db-data/mongo/:/data/db
+
+  postgres:
+    image: 'postgres:14.2'
+    ports:
+      - "5432:5432"
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == node1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: users
+    volumes:
+      - ./db-data/postgres/:/var/lib/postgresql/data
+
+volumes:
+  caddy_data:
+    external: true
+  caddy_config:
