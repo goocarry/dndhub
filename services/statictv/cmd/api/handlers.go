@@ -7,7 +7,7 @@ import (
 // StreamStatic ...
 func (app *Config) StreamStatic() http.Handler {
 
-	fs := http.FileServer(http.Dir("../../static"))
+	fs := http.FileServer(http.Dir(filesDir))
 
 	return fs
 }

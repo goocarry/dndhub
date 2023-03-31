@@ -65,6 +65,14 @@ services:
       MAIL_ENCRYPTION: ""
       MAIL_NAME: "John Smith"
       MAIL_ADDRESS: john.smith@example.com
+    
+  statictv:
+    image: goocarry/statictv:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      FILES_DIR: "/static"
 
   rabbitmq:
     image: 'rabbitmq:3.9-alpine'
