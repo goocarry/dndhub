@@ -36,3 +36,7 @@ broker.goocarry.site {
 cat.goocarry.site {
     reverse_proxy http://statictv:3006
 }
+
+display.goocarry.site {
+    reverse_proxy http://statictv:3007
+}

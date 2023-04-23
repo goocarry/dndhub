@@ -84,6 +84,17 @@ services:
     environment:
       FILES_DIR: "/app/static"
 
+  display:
+    build:
+      context: ./services/display
+      dockerfile: ./display.dockerfile
+    restart: always
+    ports:
+      - "3007:3007"
+    deploy:
+      mode: replicated
+      replicas: 1
+
   postgres:
     image: 'postgres:14.2'
     ports:

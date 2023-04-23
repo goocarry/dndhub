@@ -74,6 +74,12 @@ services:
     environment:
       FILES_DIR: "/app/static"
 
+  display:
+    image: goocarry/display:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+
   rabbitmq:
     image: 'rabbitmq:3.9-alpine'
     deploy:

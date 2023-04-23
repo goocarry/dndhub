@@ -1,0 +1,27 @@
+{{template "base" .}}
+
+{{define "content" }}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="mt-5">Следущий марафон стартует через 3 дня!</h1>
+                <hr>
+            
+                <h1 class="mt-5">Видео mp4!</h1>
+                <video controls>
+                    <source src="https://cat.goocarry.site/stream/cat.mp4" type="video/mp4">
+                    Browser does not support video tag.
+                </video>
+
+                <hr>
+
+                <h1 class="mt-5">Видео m3u8!</h1>
+                 <video id="my_video_1" class="video-js vjs-fluid vjs-default-skin" controls preload="auto"
+                data-setup='{}'>
+                    <source src="https://cat.goocarry.site/stream/cat.m3u8" type="application/x-mpegURL">
+                </video>
+
+            </div>
+        </div>
+    </div>
+{{end}}
