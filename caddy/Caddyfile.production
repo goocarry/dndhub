@@ -38,5 +38,5 @@ cat.goocarry.site {
 }
 
 display.goocarry.site {
-    reverse_proxy http://statictv:3007
+    reverse_proxy http://display:3007
 }
